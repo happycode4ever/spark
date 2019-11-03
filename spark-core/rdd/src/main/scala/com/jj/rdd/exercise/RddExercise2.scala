@@ -35,10 +35,10 @@ object RddExercise2 {
 
   //装载数据
   def loadData: RDD[Data] = {
-    val sourceRdd = sc.textFile("H:\\bigdata-dev\\ideaworkspace\\spark\\spark-core\\rdd\\src\\main\\resources\\cdn.txt")
+    val sourceRdd = sc.textFile("H:\\bigdata-dev\\ideaworkspace\\tanzhou\\spark\\spark-core\\rdd\\src\\main\\resources\\cdn.txt")
     //如果数据过多可以考虑采样
     //    val sampleRdd= sourceRdd.sample(false,0.01)
-    //    sampleRdd.saveAsTextFile("H:\\bigdata-dev\\ideaworkspace\\spark\\spark-core\\rdd\\src\\main\\resources\\sample")
+    //    sampleRdd.saveAsTextFile("H:\\bigdata-dev\\ideaworkspace\\tanzhou\\spark\\spark-core\\rdd\\src\\main\\resources\\sample")
     val filterRdd = sourceRdd.filter(line => {
       val fields = parseData(line)
       if (fields.length < 11) false

@@ -15,7 +15,7 @@ object UDAFWithDSLTest {
     UDAFWithDSL
   }
   def UDAFWithDSL: Unit ={
-    val df = spark.read.json("H:\\bigdata-dev\\ideaworkspace\\spark\\spark-sql\\src\\main\\resources\\employees.json")
+    val df = spark.read.json("H:\\bigdata-dev\\ideaworkspace\\tanzhou\\spark\\spark-sql\\src\\main\\resources\\employees.json")
     val df2 = df.withColumn("salary",$"salary".cast(DataTypes.IntegerType))
 //    df2.printSchema()
     val ds = df2.as[Input]

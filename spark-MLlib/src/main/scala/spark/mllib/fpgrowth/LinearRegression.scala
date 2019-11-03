@@ -21,7 +21,7 @@ object LinearRegression {
     val sc = new SparkContext(conf)
 
     //加载数据样本
-    val path = "H:\\bigdata-dev\\ideaworkspace\\spark\\spark-MLlib\\src\\main\\resources\\linear.txt"
+    val path = "H:\\bigdata-dev\\ideaworkspace\\tanzhou\\spark\\spark-MLlib\\src\\main\\resources\\linear.txt"
 
     //通过提供的工具类加载样本文件
     val data = MLUtils.loadLibSVMFile(sc,path).cache()

@@ -13,7 +13,7 @@ object Test {
     * 加载三张表数据并做转换dataset
     */
   def loadData: Unit ={
-    val data = sc.textFile("H:\\bigdata-dev\\ideaworkspace\\spark\\spark-sql\\src\\main\\resources\\exercise\\tbDate.txt")
+    val data = sc.textFile("H:\\bigdata-dev\\ideaworkspace\\tanzhou\\spark\\spark-sql\\src\\main\\resources\\exercise\\tbDate.txt")
       .map(line=>{
         val attr = line.split(",")
         tbDate(attr(0),attr(1).trim().toInt, attr(2).trim().toInt,attr(3).trim().toInt, attr(4).trim().toInt, attr(5).trim().toInt, attr(6).trim().toInt, attr(7).trim().toInt, attr(8).trim().toInt, attr(9).trim().toInt)
@@ -22,7 +22,7 @@ object Test {
     data.createOrReplaceTempView("date")
     context.cacheTable("date")
 
-    val stock = sc.textFile("H:\\bigdata-dev\\ideaworkspace\\spark\\spark-sql\\src\\main\\resources\\exercise\\tbStock.txt")
+    val stock = sc.textFile("H:\\bigdata-dev\\ideaworkspace\\tanzhou\\spark\\spark-sql\\src\\main\\resources\\exercise\\tbStock.txt")
       .map(line=>{
         val attr = line.split(",")
         tbStock(attr(0),attr(1),attr(2))
@@ -31,7 +31,7 @@ object Test {
     stock.createOrReplaceTempView("stock")
     context.cacheTable("stock")
 
-    val stockDetail = sc.textFile("H:\\bigdata-dev\\ideaworkspace\\spark\\spark-sql\\src\\main\\resources\\exercise\\tbStockDetail.txt")
+    val stockDetail = sc.textFile("H:\\bigdata-dev\\ideaworkspace\\tanzhou\\spark\\spark-sql\\src\\main\\resources\\exercise\\tbStockDetail.txt")
       .map(line=>{
         val attr = line.split(",")
         tbStockDetail(attr(0),attr(1).trim().toInt,attr(2),attr(3).trim().toInt,attr(4).trim().toDouble, attr(5).trim().toDouble)

@@ -17,7 +17,7 @@ object WordCount {
 
     //测试集群模式 不常用 目前本地文件会找不到 HDFS路径则因为用户名被拦截
     //    val sparkConf = new SparkConf().setAppName("wc").setMaster("spark://hadoop114:7077")
-    //  .setJars(List("H:\\bigdata-dev\\ideaworkspace\\spark\\spark-core\\wordcount\\target\\wordcount-1.0-SNAPSHOT-jar-with-dependencies.jar"))
+    //  .setJars(List("H:\\bigdata-dev\\ideaworkspace\\tanzhou\\spark\\spark-core\\wordcount\\target\\wordcount-1.0-SNAPSHOT-jar-with-dependencies.jar"))
     //  .setIfMissing("spark.driver.host","192.168.1.1")
 
     val sparkConf = new SparkConf().setAppName("wc")

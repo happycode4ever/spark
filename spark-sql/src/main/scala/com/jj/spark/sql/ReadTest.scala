@@ -13,10 +13,10 @@ object ReadTest {
 //    root
 //    |-- value: string (nullable = true)
 
-    val df = spark.read.text("H:\\bigdata-dev\\ideaworkspace\\spark\\spark-sql\\src\\main\\resources\\people2.txt")
+    val df = spark.read.text("H:\\bigdata-dev\\ideaworkspace\\tanzhou\\spark\\spark-sql\\src\\main\\resources\\people2.txt")
     df.printSchema()
     df.show()
-    val df2 = spark.read.textFile("H:\\bigdata-dev\\ideaworkspace\\spark\\spark-sql\\src\\main\\resources\\people2.txt")
+    val df2 = spark.read.textFile("H:\\bigdata-dev\\ideaworkspace\\tanzhou\\spark\\spark-sql\\src\\main\\resources\\people2.txt")
     df2.printSchema()
     df2.show()
   }

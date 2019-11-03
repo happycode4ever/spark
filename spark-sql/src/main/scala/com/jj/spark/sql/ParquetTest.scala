@@ -10,9 +10,9 @@ object ParquetTest {
   import spark.implicits._
 
   def main(args: Array[String]): Unit = {
-    val df = spark.read.json("H:\\bigdata-dev\\ideaworkspace\\spark\\spark-sql\\src\\main\\resources\\employees.json")
-    df.write.mode(SaveMode.Overwrite).parquet("H:\\bigdata-dev\\ideaworkspace\\spark\\spark-sql\\src\\main\\resources\\employees.parquet")
-    val df2 = spark.read.format("parquet").load("H:\\bigdata-dev\\ideaworkspace\\spark\\spark-sql\\src\\main\\resources\\employees.parquet")
+    val df = spark.read.json("H:\\bigdata-dev\\ideaworkspace\\tanzhou\\spark\\spark-sql\\src\\main\\resources\\employees.json")
+    df.write.mode(SaveMode.Overwrite).parquet("H:\\bigdata-dev\\ideaworkspace\\tanzhou\\spark\\spark-sql\\src\\main\\resources\\employees.parquet")
+    val df2 = spark.read.format("parquet").load("H:\\bigdata-dev\\ideaworkspace\\tanzhou\\spark\\spark-sql\\src\\main\\resources\\employees.parquet")
     df2.show()
   }
 }

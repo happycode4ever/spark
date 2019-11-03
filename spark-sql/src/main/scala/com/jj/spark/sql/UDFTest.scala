@@ -11,7 +11,7 @@ object UDFTest {
   def UDFTest: Unit ={
     //自定义UDF 一个输入一个输出，直接定义匿名函数即可，注意入参要指定类型并且带括号
     spark.udf.register("add",(x:String)=>"name:"+x)
-    val df = spark.read.json("H:\\bigdata-dev\\ideaworkspace\\spark\\spark-sql\\src\\main\\resources\\people.json")
+    val df = spark.read.json("H:\\bigdata-dev\\ideaworkspace\\tanzhou\\spark\\spark-sql\\src\\main\\resources\\people.json")
     df.createOrReplaceTempView("people")
 
     spark.sql("select add(name) from people").show()

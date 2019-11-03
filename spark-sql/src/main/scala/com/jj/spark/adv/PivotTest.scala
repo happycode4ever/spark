@@ -13,7 +13,7 @@ object PivotTest {
     val sc = spark.sparkContext
     import spark.implicits._
     //装载天气数据 2019-09-10 75 代表日期和温度
-    val rdd= sc.textFile("H:\\bigdata-dev\\ideaworkspace\\spark\\spark-sql\\src\\main\\resources\\adv\\temp.txt").map(line => {
+    val rdd= sc.textFile("H:\\bigdata-dev\\ideaworkspace\\tanzhou\\spark\\spark-sql\\src\\main\\resources\\adv\\pivot_temp.txt").map(line => {
       val attrs = line.split(" ")
       Row(attrs(0),attrs(1).toInt)
     })
@@ -39,6 +39,6 @@ object PivotTest {
     //DSL形式使用pivot .groupBy(分组字段).pivot(转换列).agg(聚合函数)
     spark.sql("select year(date) year,month(date) month,temp from " +
           "(select to_date(date) date,temp from t1)")
-          .groupBy("year").pivot("month").agg(avg("temp")).show()
+          .groupBy("year").pivot("month",Seq(1,2,3,4,5)).agg(avg("temp")).show()
   }
 }

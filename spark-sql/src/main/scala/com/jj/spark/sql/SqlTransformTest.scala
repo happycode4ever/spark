@@ -16,7 +16,7 @@ object SqlTransformTest {
   import spark.implicits._
   def dataFrameTest: Unit = {
     //可以通过read读取不同类型的文件**有坑，默认装载的是Long类型
-    val dataFrame = spark.read.json("H:\\bigdata-dev\\ideaworkspace\\spark\\spark-sql\\src\\main\\resources\\employees.json")
+    val dataFrame = spark.read.json("H:\\bigdata-dev\\ideaworkspace\\tanzhou\\spark\\spark-sql\\src\\main\\resources\\employees.json")
     dataFrame.show()
     dataFrame.printSchema()
     //创建临时表名，该SparkSession内有效
@@ -30,7 +30,7 @@ object SqlTransformTest {
 
   def rdd2df: Unit = {
     //原生方式读取rdd转换tuple形式
-    val rdd = sc.textFile("H:\\bigdata-dev\\ideaworkspace\\spark\\spark-sql\\src\\main\\resources\\people.txt")
+    val rdd = sc.textFile("H:\\bigdata-dev\\ideaworkspace\\tanzhou\\spark\\spark-sql\\src\\main\\resources\\people.txt")
       .map(line => {
         val fields = line.split(",")
         (fields(0),fields(1).trim.toInt)
@@ -51,7 +51,7 @@ object SqlTransformTest {
 
   def rdd2dfByReflection: Unit ={
     //通过case class反射出schema
-    val rdd = sc.textFile("H:\\bigdata-dev\\ideaworkspace\\spark\\spark-sql\\src\\main\\resources\\people.txt")
+    val rdd = sc.textFile("H:\\bigdata-dev\\ideaworkspace\\tanzhou\\spark\\spark-sql\\src\\main\\resources\\people.txt")
       .map(line => {
         val fields = line.split(",")
         People(fields(0),fields(1).trim.toInt)
@@ -65,7 +65,7 @@ object SqlTransformTest {
     //构建schema StructType[List[StructField]]
     val schema = StructType(StructField("name",DataTypes.StringType)::StructField("age",DataTypes.IntegerType)::Nil)
     //封装data需要RDD[Row]
-    val rdd = sc.textFile("H:\\bigdata-dev\\ideaworkspace\\spark\\spark-sql\\src\\main\\resources\\people.txt")
+    val rdd = sc.textFile("H:\\bigdata-dev\\ideaworkspace\\tanzhou\\spark\\spark-sql\\src\\main\\resources\\people.txt")
       .map(line => {
         val fields = line.split(",")
         Row(fields(0),fields(1).trim.toInt)
@@ -80,7 +80,7 @@ object SqlTransformTest {
 //    import spark.implicits._
     //需要case Class指定schema//注意样例类必须放在转换的方法体外面???
     //原生方式读取rdd转换tuple形式
-    val rdd = sc.textFile("H:\\bigdata-dev\\ideaworkspace\\spark\\spark-sql\\src\\main\\resources\\people.txt")
+    val rdd = sc.textFile("H:\\bigdata-dev\\ideaworkspace\\tanzhou\\spark\\spark-sql\\src\\main\\resources\\people.txt")
       .map(line => {
       val fields = line.split(",")
       People(fields(0),fields(1).trim.toInt)
@@ -101,7 +101,7 @@ object SqlTransformTest {
 
   def dfTods: Unit ={
     //由于默认装载的是Long类型，定义的样例类是Int类型，转换会失败
-    val df = spark.read.json("H:\\bigdata-dev\\ideaworkspace\\spark\\spark-sql\\src\\main\\resources\\people.json")
+    val df = spark.read.json("H:\\bigdata-dev\\ideaworkspace\\tanzhou\\spark\\spark-sql\\src\\main\\resources\\people.json")
     val ageColumn = $"age"
     val transDf = df.withColumn("age",ageColumn.cast(DataTypes.IntegerType))
     //**注意转换的列名和类型必须一致

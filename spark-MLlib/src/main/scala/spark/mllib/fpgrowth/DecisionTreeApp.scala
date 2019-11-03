@@ -16,7 +16,7 @@ object DecisionTreeApp extends App{
   val conf = new SparkConf().setMaster("local[4]").setAppName("DecisionTree")
   val sc = new SparkContext(conf)
 
-  val path = "H:\\bigdata-dev\\ideaworkspace\\spark\\spark-MLlib\\src\\main\\resources\\decisiontree.txt"
+  val path = "H:\\bigdata-dev\\ideaworkspace\\tanzhou\\spark\\spark-MLlib\\src\\main\\resources\\decisiontree.txt"
   //加载数据文件
   val data = MLUtils.loadLibSVMFile(sc, path)
   //将数据集切分为70%的训练数据集和30%的测试数据集

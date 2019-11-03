@@ -49,7 +49,7 @@ object UDAFWithSqlTest {
   import spark.implicits._
 
   def UDAFWithSql: Unit ={
-    val df = spark.read.json("H:\\bigdata-dev\\ideaworkspace\\spark\\spark-sql\\src\\main\\resources\\employees.json")
+    val df = spark.read.json("H:\\bigdata-dev\\ideaworkspace\\tanzhou\\spark\\spark-sql\\src\\main\\resources\\employees.json")
     df.createOrReplaceTempView("emp")
     //缓存中间表，用于后面多次操作,也是懒加载的，第一次执行action触发
     spark.sqlContext.cacheTable("emp")

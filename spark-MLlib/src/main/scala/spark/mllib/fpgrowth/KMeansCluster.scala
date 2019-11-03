@@ -16,7 +16,7 @@ object KMeansCluster extends App{
   val sc = new SparkContext(conf)
 
   //加载数据
-  val path = "H:\\bigdata-dev\\ideaworkspace\\spark\\spark-MLlib\\src\\main\\resources\\kmeans.txt"
+  val path = "H:\\bigdata-dev\\ideaworkspace\\tanzhou\\spark\\spark-MLlib\\src\\main\\resources\\kmeans.txt"
   val data = sc.textFile(path)
   //Vectors属于MLlib包 dense方法用于生成稠密向量
   val parsedData = data.map(s => Vectors.dense(s.split(' ').map(_.toDouble))).cache()

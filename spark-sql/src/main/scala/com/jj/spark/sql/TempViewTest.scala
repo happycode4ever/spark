@@ -9,7 +9,7 @@ object TempViewTest {
   private val sc = spark.sparkContext
   def main(args: Array[String]): Unit = {
     import org.apache.spark.sql.functions._
-    val df = spark.read.json("H:\\bigdata-dev\\ideaworkspace\\spark\\spark-sql\\src\\main\\resources\\people.json")
+    val df = spark.read.json("H:\\bigdata-dev\\ideaworkspace\\tanzhou\\spark\\spark-sql\\src\\main\\resources\\people.json")
     df.agg(col("name"))
     //session作用域内直接访问表名，session结束自动删除这张临表
     df.createOrReplaceTempView("people")
