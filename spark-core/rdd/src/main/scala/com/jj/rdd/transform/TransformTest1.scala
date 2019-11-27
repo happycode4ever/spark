@@ -165,6 +165,13 @@ object TransformTest1 {
     println(res)
   }
 
+  //笛卡尔积测试，慎用，容易OOM
+  def cartesianTest: Unit ={
+    val genresRDD = sc.makeRDD(Array("adventure","action","comedy"))
+    val moviesRDD = sc.makeRDD(Array((1,"adventure|comedy"),(2,"action|comedy"),(3,"adventure|action")))
+    val resRDD = genresRDD.cartesian(moviesRDD)
+  }
+
   def main(args: Array[String]): Unit = {
 //    mapTest
 //    filterTest
