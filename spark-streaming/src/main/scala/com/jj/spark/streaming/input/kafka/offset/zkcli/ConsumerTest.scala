@@ -1,8 +1,9 @@
-package com.jj.spark.streaming.input.kafka.offset
+package com.jj.spark.streaming.input.kafka.offset.zkcli
 
 import org.apache.kafka.clients.consumer.{ConsumerConfig, KafkaConsumer}
 import org.apache.kafka.common.serialization.StringDeserializer
-import scala.collection.JavaConversions._
+import collection.JavaConversions._
+
 object ConsumerTest {
   def main(args: Array[String]): Unit = {
     val kafkaParam = Map(

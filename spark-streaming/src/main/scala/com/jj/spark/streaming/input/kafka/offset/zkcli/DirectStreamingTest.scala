@@ -1,4 +1,4 @@
-package com.jj.spark.streaming.input.kafka.offset
+package com.jj.spark.streaming.input.kafka.offset.zkcli
 
 import kafka.serializer.StringDecoder
 import org.apache.kafka.clients.consumer.ConsumerConfig

@@ -1,10 +1,9 @@
-package com.jj.spark.streaming.input.kafka.offset
+package com.jj.spark.streaming.input.kafka.offset.zkcli
 
 import java.time.LocalDateTime
 
 import org.apache.kafka.clients.producer._
 import org.apache.kafka.common.serialization.StringSerializer
-
 import scala.collection.JavaConversions._
 import scala.util.Random
 

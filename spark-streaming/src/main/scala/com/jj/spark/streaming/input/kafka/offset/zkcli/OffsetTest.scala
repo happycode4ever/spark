@@ -1,4 +1,4 @@
-package com.jj.spark.streaming.input.kafka.offset
+package com.jj.spark.streaming.input.kafka.offset.zkcli
 
 import kafka.api.{OffsetRequest, PartitionOffsetRequestInfo, TopicMetadataRequest}
 import kafka.common.TopicAndPartition
@@ -10,9 +10,9 @@ import org.I0Itec.zkclient.ZkClient
 import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.spark.SparkConf
-import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.apache.spark.streaming.dstream.InputDStream
 import org.apache.spark.streaming.kafka.{HasOffsetRanges, KafkaUtils, OffsetRange}
+import org.apache.spark.streaming.{Seconds, StreamingContext}
 
 object OffsetTest {
   private val sparkConf = new SparkConf().setMaster("local[4]").setAppName("OffsetTest")
@@ -24,6 +24,7 @@ object OffsetTest {
   def main(args: Array[String]): Unit = {
     val kafkaParam = Map(
       ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG -> "hadoop112:9092,hadoop113:9092,hadoop114:9092",
+      ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG -> "false",
       ConsumerConfig.GROUP_ID_CONFIG -> consumerGroup,
       ConsumerConfig.AUTO_OFFSET_RESET_CONFIG -> "largest",
       ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG -> classOf[StringDeserializer].getName,
