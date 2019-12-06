@@ -4,9 +4,10 @@ import java.util.Properties
 
 import org.apache.spark.SparkConf
 import org.apache.spark.sql.{SaveMode, SparkSession}
+import org.junit.Test
 import org.slf4j.LoggerFactory
 
-object HiveTest {
+class HiveTest {
   private val sparkConf = new SparkConf().setMaster("local[*]").setAppName("hivetest")
   private val spark = SparkSession.builder()
     .config(sparkConf)
@@ -15,9 +16,10 @@ object HiveTest {
     .enableHiveSupport()
     .getOrCreate()
   private val sc = spark.sparkContext
-  private val logger = LoggerFactory.getLogger(HiveTest.getClass)
+  private val logger = LoggerFactory.getLogger(getClass)
   import spark.implicits._
-  def main(args: Array[String]): Unit = {
+  @Test
+  def dfTest: Unit = {
     val df = spark.sql("select * from spark.src")
     val data = df.collect().mkString(",")
     logger.info("df:{}",data)
@@ -31,5 +33,11 @@ object HiveTest {
 
 
     spark.stop()
+  }
+  @Test
+  def longTest: Unit ={
+    val df = spark.sql("select * from hello")
+    df.printSchema()
+    df.show()
   }
 }
