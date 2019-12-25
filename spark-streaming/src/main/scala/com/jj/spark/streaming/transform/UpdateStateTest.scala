@@ -2,11 +2,11 @@ package com.jj.spark.streaming.transform
 
 import org.apache.spark.SparkConf
 import org.apache.spark.storage.StorageLevel
-import org.apache.spark.streaming.{Seconds, StreamingContext}
+import org.apache.spark.streaming.{Seconds, State, StateSpec, StreamingContext}
 
 object UpdateStateTest {
   private val sparkConf = new SparkConf().setMaster("local[2]").setAppName("UpdateStateTest")
-  private val ssc = new StreamingContext(sparkConf,Seconds(5))
+  private val ssc = new StreamingContext(sparkConf,Seconds(2))
 
   def main(args: Array[String]): Unit = {
     val sourceDStream = ssc.socketTextStream("localhost",9999,StorageLevel.MEMORY_ONLY)
@@ -21,7 +21,7 @@ object UpdateStateTest {
     //本地调试的当前目录是在父parent的根目录下
     ssc.checkpoint("./checkpoint")
 
-    val resDStream = mapDStream.updateStateByKey((seq,state:Option[Int])=>{
+    val resDStream = mapDStream.updateStateByKey[Int]((seq:Seq[Int],state:Option[Int])=>{
       state match {
           //如果之前有状态叠加 目前聚集的key的count之和 + 之前的状态值
         case Some(tmp) => Some(seq.sum + tmp)
@@ -29,8 +29,17 @@ object UpdateStateTest {
         case None => Some(seq.sum)
       }
     })
-    resDStream.print()
+//    resDStream.print()
 
+    def mapFun(key:String,value:Option[Int],state:State[Int]):(String,Int)={
+      val sum = value.get + state.getOption().getOrElse(0)
+      state.update(sum)
+      (key,sum)
+    }
+    //函数名 _代表返回的是函数本身
+//        val f:(String,Option[Int],State[Int])=>(String,Int) = mapFun _
+        val resDStream2 = mapDStream.mapWithState(StateSpec.function(mapFun _))
+    resDStream2.print()
     ssc.start()
     ssc.awaitTermination()
   }
