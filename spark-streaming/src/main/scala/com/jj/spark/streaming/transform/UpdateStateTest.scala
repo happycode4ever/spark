@@ -29,7 +29,21 @@ object UpdateStateTest {
         case None => Some(seq.sum)
       }
     })
-//    resDStream.print()
+    //updateStateByKey输出结果每批一直会保留之前的统计结果，即使没有输入
+    //------------------
+    //(aa,1)
+    //(a,13)
+    //------------------
+    //(aa,1)
+    //(a,18)
+    //------------------
+    //(aa,1)
+    //(a,19)
+    //------------------
+    resDStream.foreachRDD(rdd=>{
+      rdd.foreach(println)
+      println("------------------")
+    })
 
     def mapFun(key:String,value:Option[Int],state:State[Int]):(String,Int)={
       val sum = value.get + state.getOption().getOrElse(0)
@@ -39,7 +53,29 @@ object UpdateStateTest {
     //函数名 _代表返回的是函数本身
 //        val f:(String,Option[Int],State[Int])=>(String,Int) = mapFun _
         val resDStream2 = mapDStream.mapWithState(StateSpec.function(mapFun _))
-    resDStream2.print()
+
+    //输出结果每批有输入才会显示叠加的结果，并且多少个输入就对应多少个输出，如果没有输入就没有输出
+    //--------------------
+    //2019-12-25 20:57:44,059   WARN --- [Executor task launch worker for task 5]  org.apache.spark.executor.Executor(line:66) : 1 block locks were not released by TID = 5:
+    //[rdd_11_0]
+    //(a,2)
+    //2019-12-25 20:57:44,068   WARN --- [Executor task launch worker for task 6]  org.apache.spark.executor.Executor(line:66) : 1 block locks were not released by TID = 6:
+    //[rdd_11_1]
+    //--------------------
+    //2019-12-25 20:57:46,114   WARN --- [Executor task launch worker for task 12]  org.apache.spark.executor.Executor(line:66) : 1 block locks were not released by TID = 12:
+    //[rdd_17_0]
+    //(a,3)
+    //(a,4)
+    //(a,5)
+    //(a,6)
+    //(a,7)
+    //2019-12-25 20:57:46,121   WARN --- [Executor task launch worker for task 13]  org.apache.spark.executor.Executor(line:66) : 1 block locks were not released by TID = 13:
+    //[rdd_17_1]
+    //--------------------
+//    resDStream2.foreachRDD(rdd=>{
+//      rdd.foreach(println)
+//      println("--------------------")
+//    })
     ssc.start()
     ssc.awaitTermination()
   }
